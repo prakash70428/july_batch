@@ -2,7 +2,7 @@ package lecture5;
 
 import java.util.*;
 
-public class state_of_wakanda_2 {
+public class sorted_2d {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -16,22 +16,25 @@ public class state_of_wakanda_2 {
 	        }
 	    }
 	    
-//	    for(int diag=0;diag < n;diag++) {
-//	    	int i   = 0;
-//	    	int j = diag;
-//	    	
-//	    	while(i < n && j < n) {
-//	    		System.out.println(arr[i][j]);
-//	    		i++;
-//	    		j++;
-//	    	}
-//	    }
+	    int data = scn.nextInt();
 	    
-	    for(int diag=0;diag < n;diag++) {
-	    	for(int i=0,j=diag ; j < n ; i++,j++) {
-	    		System.out.println(arr[i][j]);
+	    int i = n - 1;
+	    int j = 0;
+	    while(i >= 0 && j < n) {
+	    	if(arr[i][j] == data) {
+	    		System.out.println(i);
+	    		System.out.println(j);
+	    		return;
+	    	}
+	    	else if(arr[i][j] > data) {
+	    		i--;
+	    	}
+	    	else {
+	    		j++;
 	    	}
 	    }
+	    
+	    System.out.println("Not found");
 	}
 
 }
