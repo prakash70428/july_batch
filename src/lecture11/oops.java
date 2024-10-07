@@ -32,11 +32,12 @@ public class oops {
 		p2 = temp;
 	}
 	public static void swap1(Person p1,Person p2) {
+		p1 = new Person();
 		String t = p1.name;
 		p1.name = p2.name;
 		p2.name = t;
 		
-		p1 = new Person();
+		p2 = new Person();
 	    int temp = p1.age;
 	    p1.age = p2.age;
 	    p2.age = temp;
