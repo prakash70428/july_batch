@@ -43,13 +43,14 @@ public class balanceBracket {
         		}
         		
         		st.pop();
-        	}	
+        	}
+        	
         }
         
         if(st.size() == 0) {
         	System.out.println(true);
         }else {
-        	System.out.println(false);
+        	System.out.println(false); //more opening bracket
         }
 	}
 
