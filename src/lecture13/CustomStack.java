@@ -13,10 +13,10 @@ public class CustomStack {
     	  if(isfull()) {
     		  throw new Exception("Bhai stack full ho gya hai");
     	  }
-//    	  if(tos == data.length - 1) {
-//    		  System.out.println("Stack Overflow");
-//    		  return;
-//    	  }
+    	  if(tos == data.length - 1) {
+    		  System.out.println("Stack Overflow");
+    		  return;
+    	  }
     	  
     	  tos++;
     	  data[tos] = val;

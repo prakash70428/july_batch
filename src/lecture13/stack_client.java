@@ -4,6 +4,7 @@ public class stack_client {
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
+	
 		CustomStack st = new CustomStack(5);
 		st.push(10);
 		st.push(20);
