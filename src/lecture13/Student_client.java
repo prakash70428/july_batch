@@ -4,7 +4,7 @@ public class Student_client {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        Student s1 = new Student("Shashwat",20,101);
+		Student s1 = new Student("Shashwat",20,101);
         s1.setAge(-35);
         s1.display();
         
