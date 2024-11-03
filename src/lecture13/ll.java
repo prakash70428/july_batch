@@ -32,6 +32,33 @@ public class ll {
 			}
 			System.out.println();
 		}
+		
+		void removeFirst() {
+			if(size == 0) {
+				System.out.println("list is empty");
+			}
+			else if(size == 1) {
+				head = tail = null;
+				size--;
+			}
+			else {
+				head = head.next;
+				size--;
+			}
+		}
+		
+		void addFirst(int val) {
+			Node nn = new Node();
+			nn.data = val;
+			
+			if(size == 0) {
+				head = tail = nn;
+			}else {
+				nn.next = head;
+				head = nn;
+			}
+			size++;
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -40,7 +67,10 @@ public class ll {
 		ll.addlast(20);
 		ll.addlast(30);
 		ll.addlast(40);
-		
+		ll.display();
+		ll.removeFirst();
+		ll.display();
+		ll.addFirst(100);
 		ll.display();
 	}
 
