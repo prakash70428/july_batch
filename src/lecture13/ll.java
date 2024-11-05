@@ -11,7 +11,7 @@ public class ll {
 		Node tail;
 		int size;
 		
-		void addlast(int val) {
+		void addLast(int val) {
 			Node nn = new Node();
 			nn.data = val;
 					
@@ -59,18 +59,88 @@ public class ll {
 			}
 			size++;
 		}
+		
+		int getFirst() {
+			if(size == 0) {
+				System.out.println("list is empty");
+				return -1;
+			}else {
+				return head.data;
+			}
+		}
+		
+		int getLast() {
+			if(size == 0) {
+				System.out.println("list is empty");
+				return -1;
+			}else {
+				return tail.data;
+			}
+		}
+		
+		int getAt(int idx) {
+			if(idx < 0 || idx >= size) {
+				System.out.println("Invalid arguments");
+				return -1;
+			}
+			else if(size == 0) {
+				System.out.println("List is empty");
+				return -1;
+			}
+			else if(idx == 0) {
+				return getFirst();
+			}
+			else if(idx == size - 1) {
+				return getLast();
+			}
+			else {
+				Node temp = head;
+				for(int i=0 ;i < idx;i++) {
+					temp = temp.next;
+				}
+				
+				return temp.data;
+			}
+		}
+		
+		void addAt(int idx,int val) {
+			if(idx < 0  || idx > size) {
+				System.out.println("Invalid arguments");
+			}
+			else if(idx == 0) {
+				addFirst(val);
+			}
+			else if(idx == size) {
+				addLast(val);
+			}
+			else {
+				Node temp = head;
+				for(int i=0;i < idx - 1;i++) {
+					temp = temp.next;
+				}
+				
+				Node nn = new Node();
+				nn.data = val;
+				nn.next = temp.next;
+				temp.next = nn;
+				size++;
+			}
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Linkedlist ll = new Linkedlist();
-		ll.addlast(10);
-		ll.addlast(20);
-		ll.addlast(30);
-		ll.addlast(40);
+		ll.addLast(10);
+		ll.addLast(20);
+		ll.addLast(30);
+		ll.addLast(40);
 		ll.display();
 		ll.removeFirst();
 		ll.display();
 		ll.addFirst(100);
+		ll.display();
+		System.out.println(ll.getAt(2));
+		ll.addAt(2,300);
 		ll.display();
 	}
 
