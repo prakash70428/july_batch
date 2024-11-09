@@ -192,6 +192,79 @@ public class ll {
 				right--;
 			}
 		}
+		
+		void reversePI() {
+			Node prev = null;
+			Node curr = head;
+			
+			while(curr != null) {
+				Node temp = curr.next;
+				curr.next = prev;
+				
+				prev = curr;
+				curr = temp;
+			}
+			
+			Node temp = head;
+			head = tail;
+			tail = temp;
+		}
+		
+		int KthFromLast(int k) {
+			Node slow = head;
+			Node fast = head;
+			
+			for(int i=1;i <= k;i++) {
+				fast = fast.next;
+			}
+			
+			while(fast != tail) {
+				fast = fast.next;
+				slow = slow.next;
+			}
+			
+			return slow.data;
+		}
+		
+		int mid() {
+			Node slow = head;
+			Node fast = head;
+			
+			while(fast.next != null && fast.next.next != null) {
+				slow = slow.next;
+				fast = fast.next.next;
+			}
+			
+			return slow.data;
+		}
+		
+		Linkedlist mergeTwoSortedList(Linkedlist l1,Linkedlist l2) {
+			Linkedlist ans = new Linkedlist();
+			Node t1 = l1.head;
+			Node t2 = l2.head;
+			
+			while(t1 != null && t2 != null) {
+				if(t1.data < t2.data) {
+					ans.addLast(t1.data);
+					t1 = t1.next;
+				}else {
+					ans.addLast(t2.data);
+					t2 = t2.next;
+				}
+			}
+			
+			while(t1 != null) {
+				ans.addLast(t1.data);
+				t1 = t1.next;
+			}
+			
+			while(t2 != null) {
+				ans.addLast(t2.data);
+				t2 = t2.next;
+			}
+			
+			return ans;
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -200,20 +273,30 @@ public class ll {
 		ll.addLast(20);
 		ll.addLast(30);
 		ll.addLast(40);
+//		ll.display();
+//		ll.removeFirst();
+//		ll.display();
+//		ll.addFirst(100);
+//		ll.display();
+//		System.out.println(ll.getAt(2));
+//		ll.addAt(2,300);
+//		ll.display();
+//		ll.removeLast();
+//		ll.display();
+//		ll.removeAt(2);
+//		ll.display();
+//		ll.reverseDI();
+//		ll.display();
+//		ll.reversePI();
+//		ll.display();
+//		ll.addLast(40);
+		ll.addLast(50);
+		ll.addLast(60);
+		ll.addLast(70);
+		ll.addLast(80);
 		ll.display();
-		ll.removeFirst();
-		ll.display();
-		ll.addFirst(100);
-		ll.display();
-		System.out.println(ll.getAt(2));
-		ll.addAt(2,300);
-		ll.display();
-		ll.removeLast();
-		ll.display();
-		ll.removeAt(2);
-		ll.display();
-		ll.reverseDI();
-		ll.display();
+		//System.out.println(ll.KthFromLast(3));
+		System.out.println(ll.mid());
 	}
 
 }
