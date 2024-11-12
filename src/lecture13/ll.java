@@ -265,6 +265,52 @@ public class ll {
 			
 			return ans;
 		}
+		
+		Node getMiddleNode(Node head,Node tail) {
+			Node slow = head;
+			Node fast = head;
+			
+			while(fast.next != null && fast.next.next != null) {
+				slow = slow.next;
+				fast = fast.next.next;
+			}
+			
+			return slow;
+		}
+		
+		Linkedlist mergeSort(Node head,Node tail) {
+			if(head == tail) {
+				Linkedlist bans = new Linkedlist();
+				bans.addLast(head.data);
+				return bans;
+			}
+			
+			Node mid = getMiddleNode(head,tail);
+			Linkedlist fsh = mergeSort(head,mid);
+			Linkedlist ssh = mergeSort(mid.next,tail);
+			Linkedlist ans = mergeTwoSortedList(fsh,ssh);
+			return ans;
+		}
+		
+		void removeDuplicated() {
+			Linkedlist ans = new Linkedlist();
+			ans.addLast(this.getFirst());
+			this.removeFirst();
+			
+			while(this.size > 0) {
+				int val = this.getFirst();
+				this.removeFirst();
+				
+				if(ans.getLast() != val) {
+					ans.addLast(val);
+				}
+			}
+			
+			//this = ans; [this is read only]
+			this.head = ans.head;
+			this.tail = ans.tail;
+			this.size = ans.size;
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
