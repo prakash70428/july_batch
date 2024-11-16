@@ -311,6 +311,69 @@ public class ll {
 			this.tail = ans.tail;
 			this.size = ans.size;
 		}
+		
+		void KReverse(int k) {
+			Linkedlist l1 = new Linkedlist();//helper
+			Linkedlist ans = new Linkedlist();
+			
+			while(this.size != 0) {
+				if(this.size >= k) {
+					for(int i=1;i <= k;i++) {
+						l1.addFirst(this.getFirst());
+						this.removeFirst();
+					}
+				}else {
+					while(this.size > 0) {
+						l1.addLast(this.getFirst());
+						this.removeFirst();
+					}
+				}
+				
+				if(ans.size == 0) {
+					ans = l1;
+					l1 = new Linkedlist();
+				}else {
+					ans.tail.next = l1.head;
+					ans.tail = l1.tail;
+					ans.size += l1.size;
+					l1 = new Linkedlist();
+				}
+			}
+			
+			this.head = ans.head;
+			this.tail = ans.tail;
+			this.size = ans.size;
+		}
+		
+		void displayReverseHelper(Node node) {
+			if(node == null) {
+				return;
+			}
+			
+			displayReverseHelper(node.next);
+			System.out.print(node.data + " ");
+		}
+		void displayReverse() {
+			displayReverseHelper(head);
+			System.out.println();
+		}
+		
+		void reversePRHelper(Node node) {
+			if(node == tail) {
+				return;
+			}
+			
+			reversePRHelper(node.next);
+			node.next.next = node;
+		}
+		void reversePR() {
+			reversePRHelper(head);
+			Node temp = this.head;
+			this.head = this.tail;
+			this.tail = temp;
+			
+			this.tail.next = null;
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -340,9 +403,10 @@ public class ll {
 		ll.addLast(60);
 		ll.addLast(70);
 		ll.addLast(80);
-		ll.display();
+//		ll.display();
 		//System.out.println(ll.KthFromLast(3));
-		System.out.println(ll.mid());
+//		System.out.println(ll.mid());
+		ll.KReverse(2);
 	}
 
 }
