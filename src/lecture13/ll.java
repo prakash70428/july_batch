@@ -374,6 +374,27 @@ public class ll {
 			
 			this.tail.next = null;
 		}
+		
+		void reverseDRHelper(Node right,int counter) {
+			if(right == null) {
+				return;
+			}
+			
+			reverseDRHelper(right.next,counter+1);
+			if(counter >= size/2) {
+				int temp = left.data;
+				left.data = right.data;
+				right.data = temp;
+				
+				left = left.next;
+			}
+		}
+		
+		Node left;
+		void reverseDR() {
+			left = head;
+			reverseDRHelper(head,0);
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
