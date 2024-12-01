@@ -105,6 +105,89 @@ public class binary_tree {
     	int ans = Math.max(lh, rh) + 1;
     	return ans;
     }
+    
+    public static boolean find(Node node,int data) {
+    	if(node == null) {
+    		return false;
+    	}
+    	
+    	if(node.data == data) {
+    		return true;
+    	}
+    	
+    	boolean lans = find(node.left,data);
+    	if(lans == true) {
+    		return true;
+    	}
+    	
+    	boolean rans = find(node.right,data);
+    	if(rans == true) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    public static ArrayList<Integer> nodeToRootPath(Node node,int data){
+    	if(node == null) {
+    		return new ArrayList<>();
+    	}
+    	
+    	if(node.data == data) {
+    		ArrayList<Integer> bans = new ArrayList<>();
+    		bans.add(node.data);
+    		return bans;
+    	}
+    	
+    	ArrayList<Integer> lans = nodeToRootPath(node.left,data);
+    	if(lans.size() > 0) {
+    		lans.add(node.data);
+    		return lans;
+    	}
+    	
+    	 ArrayList<Integer> rans = nodeToRootPath(node.right,data);
+    	 if(rans.size() > 0) {
+    		 rans.add(node.data);
+    		 return rans;
+    	 }
+    	 
+    	 return new ArrayList<>();
+    }
+    
+    public static void iterativePrePostInTraversal(Node node) {
+    	Stack<pair> st = new Stack<>();
+    	st.push(new pair(node,0));
+    	
+    	String pre = "";
+    	String in = "";
+    	String post = "";
+    	
+    	while(st.size() != 0) {
+    		pair tos = st.peek();
+    		if(tos.state == 0) {
+    			pre += tos.node.data + " ";
+    			tos.state++;
+    			if(tos.node.left != null) {
+    				st.push(new pair(tos.node.left,0));
+    			}
+    		}
+    		else if(tos.state == 1) {
+    			in += tos.node.data + " ";
+    			tos.state++;
+    			if(tos.node.right != null) {
+    				st.push(new pair(tos.node.right,0));
+    			}
+    		}
+    		else {
+    			post += tos.node.data + " ";
+    			st.pop();
+    		}
+    	}
+    	
+    	System.out.println("pre:" + pre);
+    	System.out.println("in:" + in);
+    	System.out.println("post:" + post);
+    }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -115,6 +198,9 @@ public class binary_tree {
         display(root);
         System.out.println(size(root));
         System.out.println(height(root));
+        System.out.println(find(root,600));
+        System.out.println(nodeToRootPath(root,80));
+        iterativePrePostInTraversal(root);
 	}
 
 }
