@@ -9,6 +9,12 @@ public class binary_tree {
     	public Node(int data) {
     		this.data = data;
     	}
+    	
+    	public Node(int data,Node left,Node right) {
+    		this.data = data;
+    		this.left = left;
+    		this.right = right;
+    	}
     }
     public static class pair{
     	Node node;
@@ -189,6 +195,41 @@ public class binary_tree {
     	System.out.println("post:" + post);
     }
 	
+    public static void printKLevelDown(Node node,int k) {
+    	if(node == null) {
+    		return;
+    	}
+    	
+    	if(k == 0) {
+    		System.out.println(node.data);
+    		return;
+    	}
+    	
+    	printKLevelDown(node.left,k - 1);
+    	printKLevelDown(node.right,k - 1);
+    }
+    
+    public static void createLeftCloneTree(Node node) {
+    	if(node == null) {
+    		return;
+    	}
+    	
+    	createLeftCloneTree(node.left);
+    	createLeftCloneTree(node.right);
+    	Node clone = new Node(node.data,node.left,null);
+    	node.left = clone;
+    }
+    
+    public static void transformBackfromleftClonedTree(Node node) {
+    	if(node == null) {
+    		return;
+    	}
+    	
+    	transformBackfromleftClonedTree(node.left.left);
+    	transformBackfromleftClonedTree(node.right);
+    	node.left = node.left.left;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Integer[] arr = {10,20,40,null,null,50,60,null,null,null,30,70,null,80,null
@@ -201,6 +242,8 @@ public class binary_tree {
         System.out.println(find(root,600));
         System.out.println(nodeToRootPath(root,80));
         iterativePrePostInTraversal(root);
+//        printKLevelDown(root,2);
+        transformBackfromleftClonedTree(root);
 	}
 
 }
