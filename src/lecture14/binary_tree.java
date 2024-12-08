@@ -134,26 +134,26 @@ public class binary_tree {
     	return false;
     }
     
-    public static ArrayList<Integer> nodeToRootPath(Node node,int data){
+    public static ArrayList<Node> nodeToRootPath(Node node,int data){
     	if(node == null) {
     		return new ArrayList<>();
     	}
     	
     	if(node.data == data) {
-    		ArrayList<Integer> bans = new ArrayList<>();
-    		bans.add(node.data);
+    		ArrayList<Node> bans = new ArrayList<>();
+    		bans.add(node);
     		return bans;
     	}
     	
-    	ArrayList<Integer> lans = nodeToRootPath(node.left,data);
+    	ArrayList<Node> lans = nodeToRootPath(node.left,data);
     	if(lans.size() > 0) {
-    		lans.add(node.data);
+    		lans.add(node);
     		return lans;
     	}
     	
-    	 ArrayList<Integer> rans = nodeToRootPath(node.right,data);
+    	 ArrayList<Node> rans = nodeToRootPath(node.right,data);
     	 if(rans.size() > 0) {
-    		 rans.add(node.data);
+    		 rans.add(node);
     		 return rans;
     	 }
     	 
@@ -195,8 +195,8 @@ public class binary_tree {
     	System.out.println("post:" + post);
     }
 	
-    public static void printKLevelDown(Node node,int k) {
-    	if(node == null) {
+    public static void printKLevelDown(Node node,int k,Node blocker) {
+    	if(node == null || node == blocker) {
     		return;
     	}
     	
@@ -205,8 +205,8 @@ public class binary_tree {
     		return;
     	}
     	
-    	printKLevelDown(node.left,k - 1);
-    	printKLevelDown(node.right,k - 1);
+    	printKLevelDown(node.left,k - 1,blocker);
+    	printKLevelDown(node.right,k - 1,blocker);
     }
     
     public static void createLeftCloneTree(Node node) {
@@ -230,20 +230,46 @@ public class binary_tree {
     	node.left = node.left.left;
     }
     
+    public static void levelOrder(Node node) {
+    	Queue<Node> q = new ArrayDeque<>();
+    	q.add(node);
+    	
+    	while(q.size() != 0) {
+    		Node rn = q.remove();
+    		System.out.print(rn.data + " ");
+    		if(rn.left != null) {
+    			q.add(rn.left);
+    		}
+    		if(rn.right != null) {
+    			q.add(rn.right);
+    		}
+    	}
+    	
+    	System.out.println();
+    }
+    
+    public static void printKNodesFar(Node node,int data,int k) {
+    	ArrayList<Node> al = nodeToRootPath(node,data);
+    	for(int i=0 ;i < al.size();i++) {
+    		printKLevelDown(al.get(i),k-i,i == 0 ? null : al.get(i - 1));
+    	}
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Integer[] arr = {10,20,40,null,null,50,60,null,null,null,30,70,null,80,null
         		           ,null,90,null,null};
         
         Node root = Construct(arr);
-        display(root);
-        System.out.println(size(root));
-        System.out.println(height(root));
-        System.out.println(find(root,600));
-        System.out.println(nodeToRootPath(root,80));
-        iterativePrePostInTraversal(root);
-//        printKLevelDown(root,2);
-        transformBackfromleftClonedTree(root);
+//        display(root);
+//        System.out.println(size(root));
+//        System.out.println(height(root));
+//        System.out.println(find(root,600));
+//        System.out.println(nodeToRootPath(root,80));
+//        iterativePrePostInTraversal(root);
+////        printKLevelDown(root,2);
+//        transformBackfromleftClonedTree(root);
+        levelOrder(root);
 	}
 
 }
