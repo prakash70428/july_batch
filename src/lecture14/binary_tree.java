@@ -255,7 +255,25 @@ public class binary_tree {
     	}
     }
     
+    public static void pathToleafFromRoot(Node node,String path,int sum,int lo,int hi) {
+    	if(node == null) {
+    		return;
+    	}
+    	
+    	if(node.left == null && node.right == null) {
+    		sum += node.data;
+    		if(sum >= lo && sum <= hi) {
+    			System.out.println(path + node.data );
+    		}
+    		return ;
+    	}
+    	
+    	pathToleafFromRoot(node.left,path + node.data + ",",sum+node.data,lo,hi);
+    	pathToleafFromRoot(node.right,path + node.data + ",",sum+node.data,lo,hi);
+    }
+    
 	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
 		// TODO Auto-generated method stub
         Integer[] arr = {10,20,40,null,null,50,60,null,null,null,30,70,null,80,null
         		           ,null,90,null,null};
@@ -270,6 +288,9 @@ public class binary_tree {
 ////        printKLevelDown(root,2);
 //        transformBackfromleftClonedTree(root);
         levelOrder(root);
+        int lo = scn.nextInt();
+        int hi = scn.nextInt();
+        pathToleafFromRoot(root,"",0,lo,hi);
 	}
 
 }
