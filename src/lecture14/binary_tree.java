@@ -25,6 +25,14 @@ public class binary_tree {
     		this.state = state;
     	}
     }
+    public static class DPair{
+    	int ht;
+    	int dia;
+    }
+    public static class BPair{
+    	boolean isbal;
+    	int ht;
+    }
     public static Node Construct(Integer[] arr) {
     	Stack<pair> st = new Stack<>();
     	Node root = new Node(arr[0]);
@@ -270,6 +278,88 @@ public class binary_tree {
     	
     	pathToleafFromRoot(node.left,path + node.data + ",",sum+node.data,lo,hi);
     	pathToleafFromRoot(node.right,path + node.data + ",",sum+node.data,lo,hi);
+    }
+    
+    public static DPair diameter(Node node) {
+    	if(node == null) {
+    		DPair bp = new DPair();
+    		bp.ht = -1;
+    		bp.dia = 0;
+    		return bp;
+    	}
+    	
+    	DPair lp = diameter(node.left);
+    	DPair rp = diameter(node.right);
+    	
+    	DPair mp = new DPair();
+    	mp.ht = Math.max(lp.ht,rp.ht) + 1;
+    	mp.dia = Math.max(lp.ht+rp.ht+2, Math.max(lp.dia,rp.dia));
+    	
+    	return mp;
+    }
+    
+    public static int diameter1(Node node) {
+    	DPair ans = diameter(node);
+    	return ans.dia;
+    }
+    
+    public static BPair isBalanced(Node node) {
+    	if(node == null) {
+    		BPair bp = new BPair();
+    		bp.ht = -1;
+    		bp.isbal = true;
+    		return bp;
+    	}
+    	
+    	BPair lp = isBalanced(node.left);
+    	BPair rp = isBalanced(node.right);
+    	BPair mp = new BPair();
+    	mp.ht = Math.max(lp.ht,rp.ht) + 1;
+    	if(lp.isbal == true && rp.isbal == true && Math.abs(lp.ht-rp.ht) <= 1) {
+    		mp.isbal = true;
+    	}else {
+    		mp.isbal = false; 
+    	}
+    	
+    	return mp;
+    }
+    public static boolean isBal(Node node) {
+    	BPair ans = isBalanced(node);
+    	return ans.isbal;
+    }
+    
+    //-----------------*----------*-----------
+    public static class BSTPair{
+    	int min;
+    	int max;
+    	boolean isbst;
+    }
+    public static BSTPair isBST(Node node) {
+    	if(node == null) {
+    		BSTPair bp = new BSTPair();
+    		bp.min = Integer.MAX_VALUE;
+    		bp.max = Integer.MIN_VALUE;
+    		bp.isbst = true;
+    		return bp;
+    	}
+    	
+    	BSTPair lp = isBST(node.left);
+    	BSTPair rp = isBST(node.right);
+        
+    	BSTPair mp = new BSTPair();
+    	mp.min = Math.min(Math.min(lp.min,rp.min), node.data);
+    	mp.max = Math.max(Math.max(lp.max,rp.max), node.data);
+    	if(lp.isbst == true && rp.isbst == true && lp.max < node.data && rp.min > node.data) {
+    		mp.isbst = true;
+    	}else {
+    		mp.isbst = false;
+    	}
+    	
+    	return mp;
+    }
+    
+    public static boolean bst(Node node){
+    	
     }
     
 	public static void main(String[] args) {
