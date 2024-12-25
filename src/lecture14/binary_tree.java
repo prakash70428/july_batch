@@ -333,30 +333,70 @@ public class binary_tree {
     	int min;
     	int max;
     	boolean isbst;
+    	Node lbstroot;
+    	int lbstsize;
     }
-    public static BSTPair isBST(Node node) {
-    	if(node == null) {
-    		BSTPair bp = new BSTPair();
-    		bp.min = Integer.MAX_VALUE;
-    		bp.max = Integer.MIN_VALUE;
-    		bp.isbst = true;
-    		return bp;
-    	}
-    	
-    	BSTPair lp = isBST(node.left);
-    	BSTPair rp = isBST(node.right);
-        
-    	BSTPair mp = new BSTPair();
-    	mp.min = Math.min(Math.min(lp.min,rp.min), node.data);
-    	mp.max = Math.max(Math.max(lp.max,rp.max), node.data);
-    	if(lp.isbst == true && rp.isbst == true && lp.max < node.data && rp.min > node.data) {
-    		mp.isbst = true;
-    	}else {
-    		mp.isbst = false;
-    	}
-    	
-    	return mp;
-    }
+//    public static BSTPair isBST(Node node) {
+//    	if(node == null) {
+//    		BSTPair bp = new BSTPair();
+//    		bp.min = Integer.MAX_VALUE;
+//    		bp.max = Integer.MIN_VALUE;
+//    		bp.isbst = true;
+//    		return bp;
+//    	}
+//    	
+//    	BSTPair lp = isBST(node.left);
+//    	BSTPair rp = isBST(node.right);
+//        
+//    	BSTPair mp = new BSTPair();
+//    	mp.min = Math.min(Math.min(lp.min,rp.min), node.data);
+//    	mp.max = Math.max(Math.max(lp.max,rp.max), node.data);
+//    	if(lp.isbst == true && rp.isbst == true && lp.max < node.data && rp.min > node.data) {
+//    		mp.isbst = true;
+//    	}else {
+//    		mp.isbst = false;
+//    	}
+//    	
+//    	return mp;
+//    }
+    
+     public static BSTPair largestbst(Node node) {
+    	 if(node == null) {
+     		BSTPair bp = new BSTPair();
+     		bp.min = Integer.MAX_VALUE;
+     		bp.max = Integer.MIN_VALUE;
+     		bp.isbst = true;
+     		return bp;
+    	 }
+    	 
+    	 BSTPair lp = largestbst(node.left);
+    	 BSTPair rp = largestbst(node.right);
+    	 
+    	 BSTPair mp = new BSTPair();
+    	 mp.min = Math.min(Math.min(lp.min,rp.min), node.data);
+         mp.max = Math.max(Math.max(lp.max,rp.max), node.data);
+         if(lp.isbst==true && rp.isbst==true&&lp.max<node.data&&rp.min>node.data) {
+        	 mp.isbst = true;
+        	 mp.lbstroot = node;
+        	 mp.lbstsize = lp.lbstsize + rp.lbstsize + 1;
+         }else {
+        	 mp.isbst = false;
+        	 if(lp.lbstsize >= rp.lbstsize) {
+        		 mp.lbstroot = lp.lbstroot;
+        		 mp.lbstsize = lp.lbstsize;
+        	 }else {
+        		 mp.lbstroot = rp.lbstroot;
+        		 mp.lbstsize = rp.lbstsize;
+        	 }
+         }
+    	 
+    	 return mp;
+     }
+     
+     public static int largestbstsize(Node node) {
+    	 BSTPair ansp = largestbst(node);
+    	 return ansp.lbstsize;
+     }
     
     
 	public static void main(String[] args) {
@@ -374,10 +414,12 @@ public class binary_tree {
 //        iterativePrePostInTraversal(root);
 ////        printKLevelDown(root,2);
 //        transformBackfromleftClonedTree(root);
-        levelOrder(root);
-        int lo = scn.nextInt();
-        int hi = scn.nextInt();
-        pathToleafFromRoot(root,"",0,lo,hi);
+//        levelOrder(root);
+//        int lo = scn.nextInt();
+//        int hi = scn.nextInt();
+//        pathToleafFromRoot(root,"",0,lo,hi);
+          BSTPair ansp = largestbst(root);
+          System.out.println(ansp.lbstroot.data + "@" + ansp.lbstsize);
 	}
 
 }
