@@ -15,8 +15,8 @@ public class stringbuilder {
 //        long duration = end - start;
 //        System.out.println(duration);
         
+        //-------------*----------------*--------------
         StringBuilder sb = new StringBuilder("hello");
-        
         long start = System.currentTimeMillis();
         for(int i=1;i <= 1000000;i++) {
         	sb.append('e');
