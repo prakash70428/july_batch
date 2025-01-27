@@ -11,10 +11,10 @@ public class rough {
 	 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 	 * }
 	 */
-	class Solution {
-	    public ListNode middleNode(ListNode head) {
-	        
-	    }
-	}
+//	class Solution {
+//	    public ListNode middleNode(ListNode head) {
+//	        
+//	    }
+//	}
 
 }

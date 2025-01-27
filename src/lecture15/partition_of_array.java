@@ -23,7 +23,7 @@ public class partition_of_array {
 		
 		while(i < arr.length) {
 			if(arr[i] <= pivot) {
-				swap(arr,i,j);
+				//swap(arr,i,j);
 				i++;
 				j++;
 			}else {

@@ -22,9 +22,9 @@ public class climpstairs {
 			return dp[n];
 		}
 		
-		int f1 = cs(n - 1,dp);
-		int f2 = cs(n - 2,dp);
-		int f3 = cs(n - 3,dp);
+		int f1 = csMem(n - 1,dp);
+		int f2 = csMem(n - 2,dp);
+		int f3 = csMem(n - 3,dp);
 		
 		int ans = f1 + f2 + f3;
 		dp[n] = ans;

@@ -28,7 +28,7 @@ public class climbstairswithjump {
 		
 		int ans = 0;
 		for(int jump=1;jump <= arr[idx];jump++) {
-			ans += cs2(arr , idx + jump,dp);
+			ans += cs2Memo(arr , idx + jump,dp);
 		}
 		
 		dp[idx] = ans;
